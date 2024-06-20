@@ -1,0 +1,88 @@
+.drop-file-container{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 300px;
+    width: calc(100vw - 220px);
+    bottom: 50px;
+    left: 220px;
+}
+.upload-icon{
+    width: 100px;
+    height: 100px;
+    color: rgba(0,0,0,0.5);
+}
+.dropzone{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 300px;
+    min-width: 300px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    text-align: center;
+}
+.dropzone span{
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgba(0,0,0,0.8);
+    padding: 20px;
+}
+.dropzone:hover{
+    background-color: rgb(207, 214, 235);;
+}
+
+.file-list{
+    display: flex;
+    width: calc(100vw - 600px);
+    min-width: 500px;
+    max-width: 800px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.file-list ul{
+    padding: 0;
+    list-style-type: none;
+    height: 85%;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.file-list ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding: 10px;
+    margin: 5px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.file-list ul li:first-child{
+    margin-top: 0;
+}
+
+.drop-file-container button{
+    position: absolute;
+    bottom: 0;
+    width: calc(100vw - 600px);
+    min-width: 500px;
+    max-width: 800px;
+    border: none;
+    background-color: royalblue;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+}

@@ -1,28 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Board from "../components/Board";
+import Basic from "../components/FileSelect";
 import Profile from "../components/Profile";
 import Sidebar from "../components/Sidebar";
 
 function Dashboard() {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("http://localhost:8080/dashboard");
-        setData(res.data);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+  const nav = useNavigate();
   return (
     <div>
       <Sidebar />
       <Board />
       <Profile />
+      <Basic />
     </div>
   );
 }

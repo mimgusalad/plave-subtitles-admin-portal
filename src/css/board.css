@@ -1,9 +1,61 @@
 .board{
     position: fixed;
     top: 0;
-    left: 0;
+    left: 220px;
     height: 100vh;
-    width: 100vw;
+    width: calc(100vw - 220px);
     background-color: tomato;
     z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card{
+    display: flex;
+    flex-direction: row;
+    height: max-content;
+    align-items: center;
+    width: max-content;
+    border-radius: 10px;
+    background-color: white;
+    height: 48px;
+    margin: 10px;
+    padding: 15px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.card span{
+    font-size: 1em;
+    font-weight: 400;
+    margin: 0 10px;
+    padding: 20px;
+}
+
+.title-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 400px;
+
+}
+
+.members-column{
+    display: flex;
+    flex-direction: row;
+    justify-content: first baseline;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 250px;
+}
+
+.members-column span{
+    font-size: 12px;
+    font-weight: 400;
+    margin:  2px 5px;
+    padding: 3px 14px;
+    color: snow;
+    font-weight: bold;
+    border-radius: 20px;
 }

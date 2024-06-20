@@ -11,15 +11,27 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import axios from "axios";
+import { useState } from "react";
 
 function Login() {
-  const handleSubmit = (event) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    try {
+      const res = await axios.post("http://localhost:8080/login", {
+        id: username,
+        password: password,
+      });
+      window.location.href = "/dashboard";
+      console.log(res.data);
+    } catch (error) {
+      setError("Invalid username or password");
+    }
   };
   const defaultTheme = createTheme();
 
@@ -56,6 +68,7 @@ function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -66,6 +79,7 @@ function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

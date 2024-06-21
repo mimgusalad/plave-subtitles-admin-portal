@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/sidebar.css";
 
 function Sidebar() {
+  const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState("Dashboard");
 
   const handleClick = (e) => {
     setIsSelected(e.target.innerText);
-    console.log(e.target.innerText);
+    navigate(`/${e.target.innerText.toLowerCase()}`);
   };
 
   return (

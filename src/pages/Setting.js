@@ -1,17 +1,18 @@
 import { Avatar } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import "../css/setting.css";
 
 export default function Setting() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [content, setContent] = useState({
-    image: null,
-    userId: null,
+  const [user, setUser] = useState({
+    id: "",
+    username: "",
+    email: "",
+    image: "/default-avatar.png",
   });
-  const userId = "mimgusalad";
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -28,12 +29,13 @@ export default function Setting() {
   const handleEditClick = async () => {
     if (selectedImage) {
       const formData = new FormData();
-      setContent({ ...content, image: selectedImage, userId: userId });
+      // setProfile({ ...profile, image: selectedImage, id: profile });
 
-      formData.append("file", JSON.stringify(content));
+      formData.append("image", selectedImage);
+      formData.append("id", user.id);
 
       try {
-        const res = await axios.post(
+        const res = await axios.patch(
           "http://localhost:8080/profile",
           formData,
           {
@@ -52,6 +54,29 @@ export default function Setting() {
     }
   };
 
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get("http://localhost:8080/user");
+        const userData = res.data;
+        const imageBlob = new Blob([new Uint8Array(user.image)], {
+          type: "image/png",
+        });
+        const imageUrl = URL.createObjectURL(imageBlob);
+
+        setUser({
+          id: userData.id,
+          username: userData.username,
+          email: userData.email,
+          image: `data:image/png;base64,${res.data.image}`,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUser();
+  }, []);
+
   return (
     <>
       <Sidebar />
@@ -61,7 +86,7 @@ export default function Setting() {
           <Avatar
             className="avatar"
             alt="profile image"
-            src={previewUrl || "/default-avatar.png"}
+            src={previewUrl || user.image}
             onClick={() => document.getElementById("fileInput").click()}
           />
           <input
@@ -72,8 +97,8 @@ export default function Setting() {
             onChange={handleImageChange}
           />
           <div id="setting-profile">
-            <h1>이경민</h1>
-            <span>{userId}@gmail.com</span>
+            <h1>{user.username}</h1>
+            <span>{user.email}</span>
           </div>
           <button id="setting-button" onClick={handleEditClick}>
             Edit Profile

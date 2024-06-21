@@ -86,3 +86,8 @@
     cursor: pointer;
     padding: 10px;
 }
+
+.drop-file-container button:disabled{
+    background-color: gray;
+    cursor: not-allowed;
+}

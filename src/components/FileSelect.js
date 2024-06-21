@@ -57,7 +57,12 @@ export default function Basic(props) {
       </div>
       <div className="file-list">
         <ul>{fileList}</ul>
-        <button onClick={() => uploadFile(fileList)}>Upload Files</button>
+        <button
+          onClick={() => uploadFile(fileList)}
+          disabled={files.length === 0}
+        >
+          Upload Files
+        </button>
       </div>
     </div>
   );

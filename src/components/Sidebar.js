@@ -23,9 +23,9 @@ function Sidebar() {
         </li>
         <li
           onClick={handleClick}
-          style={style({ isSelected: isSelected === "Feedbacks" })}
+          style={style({ isSelected: isSelected === "Feedback" })}
         >
-          Feedbacks
+          Feedback
         </li>
       </ul>
     </div>

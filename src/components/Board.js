@@ -1,9 +1,39 @@
+import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../css/board.css";
 
 export default function Board() {
   const [data, setData] = useState([]);
+
+  const handleDelete = async (langCode, videoId) => {
+    const action = window.confirm(
+      "delete this subtitle? " + videoId + " " + langCode
+    );
+    if (action) {
+      try {
+        const res = await axios.delete("http://localhost:8080/file", {
+          params: { videoId, langCode },
+        });
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const SubtitleChips = ({ langCode, videoId }) => {
+    return (
+      <span id="langCode-chip">
+        {langCode.toUpperCase()}
+        <CloseIcon
+          className="lang-close-icon"
+          onClick={() => handleDelete(langCode, videoId)}
+        />
+      </span>
+    );
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -19,6 +49,24 @@ export default function Board() {
   return (
     <div className="board">
       <h2>Overview</h2>
+      <div className="board header">
+        <div className="date-column">
+          <span>Uploaded Date</span>
+        </div>
+        <div className="videoId-column">
+          <span>Video ID</span>
+        </div>
+        <div className="title-column">
+          <span>Title</span>
+        </div>
+        <div className="members-column">
+          <span>Members</span>
+        </div>
+        <div className="subtitle-column">
+          <span>Available Subs</span>
+        </div>
+      </div>
+
       <div className="cards">
         {data.map((item, index) => (
           <div key={index} className="card">
@@ -31,10 +79,25 @@ export default function Board() {
             <div className="title-column">
               <span>{item.title}</span>
             </div>
-            <div className="members-column">
+            <div className="members">
               {item.members.map((member) => (
-                <Chips key={member} data={member} />
+                <MemberChips key={member} data={member} />
               ))}
+            </div>
+            <div className="subtitle">
+              {item.subtitles.length > 0 ? (
+                item.subtitles.map((lang) => {
+                  return (
+                    <SubtitleChips
+                      key={lang}
+                      langCode={lang}
+                      videoId={item.videoId}
+                    />
+                  );
+                })
+              ) : (
+                <span>None</span>
+              )}
             </div>
           </div>
         ))}
@@ -43,7 +106,7 @@ export default function Board() {
   );
 }
 
-const Chips = ({ data: member }) => {
+const MemberChips = ({ data: member }) => {
   const memberColor = {
     yejun: "royalblue",
     noah: "purple",

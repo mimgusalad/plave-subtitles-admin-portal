@@ -5,25 +5,6 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import "../css/drop-file.css";
 
-const uploadFile = async (file) => {
-  const formData = new FormData();
-  for (let i = 0; i < file.length; i++) formData.append("file", file[i]);
-
-  try {
-    const res = await axios.post("http://localhost:8080/api/files", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    // const res = await axios.get(
-    //   "http://localhost:8080/api/files?filename=meatball.png"
-    // );
-    console.log(res.data);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export default function Basic(props) {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
@@ -33,6 +14,23 @@ export default function Basic(props) {
 
   const handleCloseIconClick = (index) => {
     setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
+  const uploadFile = async (files) => {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) formData.append("file", files[i]);
+
+    try {
+      const res = await axios.post("http://localhost:8080/file", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setFiles([]);
+      alert("Successfully uploaded files");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const fileList = files.map((file, index) => (
@@ -57,10 +55,7 @@ export default function Basic(props) {
       </div>
       <div className="file-list">
         <ul>{fileList}</ul>
-        <button
-          onClick={() => uploadFile(fileList)}
-          disabled={files.length === 0}
-        >
+        <button onClick={() => uploadFile(files)} disabled={files.length === 0}>
           Upload Files
         </button>
       </div>

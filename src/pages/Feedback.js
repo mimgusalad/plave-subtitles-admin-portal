@@ -25,7 +25,7 @@ export default function Feedback() {
       <Sidebar />
       <Profile />
       <div className="feedbacks">
-        <h1>Feedback</h1>
+        <h2>Feedback</h2>
         <div className="feedback header">
           <div className="timestamp-column">
             <span>Timestamp</span>

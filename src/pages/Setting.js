@@ -1,18 +1,12 @@
 import { Avatar } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import "../css/setting.css";
 
-export default function Setting() {
+export default function Setting({ user, setUser }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [user, setUser] = useState({
-    id: "",
-    username: "",
-    email: "",
-    image: "/default-avatar.png",
-  });
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -29,7 +23,6 @@ export default function Setting() {
   const handleEditClick = async () => {
     if (selectedImage) {
       const formData = new FormData();
-      // setProfile({ ...profile, image: selectedImage, id: profile });
 
       formData.append("image", selectedImage);
       formData.append("id", user.id);
@@ -48,38 +41,32 @@ export default function Setting() {
         if (res.status === 200)
           alert("Profile image updated successfully"); // 토스트 메세지?
         else alert("Failed to update profile image");
+        getUser();
       } catch (error) {
         console.log(error);
       }
     }
   };
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const res = await axios.get("http://localhost:8080/user");
-        const userData = res.data;
-        const imageBlob = new Blob([new Uint8Array(user.image)], {
-          type: "image/png",
-        });
-        const imageUrl = URL.createObjectURL(imageBlob);
+  const getUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/user");
+      const userData = res.data;
 
-        setUser({
-          id: userData.id,
-          username: userData.username,
-          email: userData.email,
-          image: `data:image/png;base64,${res.data.image}`,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getUser();
-  }, []);
+      setUser({
+        id: userData.id,
+        username: userData.username,
+        email: userData.email,
+        image: `data:image/png;base64,${res.data.image}`,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
-      <Sidebar />
+      <Sidebar page="Dashboard" />
       <div className="setting">
         <h1 id="setting-header">Profile Setting</h1>
         <div className="setting-container">

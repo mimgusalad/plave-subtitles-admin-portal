@@ -11,10 +11,26 @@ import axios from "axios";
 import { useState } from "react";
 import "../css/login.css";
 
-function Login() {
+function Login({ setIsLogin, setUser }) {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const getUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/user");
+      const userData = res.data;
+
+      setUser({
+        id: userData.id,
+        username: userData.username,
+        email: userData.email,
+        image: `data:image/png;base64,${res.data.image}`,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +40,10 @@ function Login() {
         id: id,
         password: password,
       });
-      if (res.status === 200) window.location.href = "/dashboard";
+      if (res.status === 200) {
+        setIsLogin(true);
+        getUser();
+      }
     } catch (error) {
       setError("Invalid username or password");
     }
@@ -78,6 +97,7 @@ function Login() {
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {error && <p className="error">{error}</p>}
               <Button
                 type="submit"
                 fullWidth

@@ -4,26 +4,24 @@ import Profile from "../components/Profile";
 import Sidebar from "../components/Sidebar";
 import "../css/feedback.css";
 
-export default function Feedback() {
+export default function Feedback({ user }) {
   const [feedback, setFeedback] = useState([]);
-
+  const getFeedback = async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/feedback");
+      setFeedback(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const getFeedback = async () => {
-      try {
-        const res = await axios.get("http://localhost:8080/feedback");
-        console.log(res.data);
-        setFeedback(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getFeedback();
   }, []);
 
   return (
     <div>
-      <Sidebar />
-      <Profile />
+      <Sidebar page={"Feedback"} />
+      <Profile user={user} />
       <div className="feedbacks">
         <h2>Feedback</h2>
         <div className="feedback header">

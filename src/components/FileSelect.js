@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import "../css/drop-file.css";
 
-export default function Basic(props) {
+export default function FileSelect({ fetchData }) {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) =>
@@ -28,6 +28,7 @@ export default function Basic(props) {
       });
       setFiles([]);
       alert("Successfully uploaded files");
+      fetchData();
     } catch (err) {
       console.log(err);
     }

@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/sidebar.css";
 
-function Sidebar() {
+function Sidebar({ page }) {
   const navigate = useNavigate();
-  const [isSelected, setIsSelected] = useState("Dashboard");
+  const [isSelected, setIsSelected] = useState(page);
 
-  const handleClick = (e) => {
-    setIsSelected(e.target.innerText);
-    navigate(`/${e.target.innerText.toLowerCase()}`);
+  const handleClick = (selected) => {
+    setIsSelected(selected);
+    navigate(`/${selected.toLowerCase()}`);
   };
 
   return (
@@ -16,14 +16,14 @@ function Sidebar() {
       <h2>Admin Panel</h2>
       <ul>
         <li
-          onClick={handleClick}
-          style={style({ isSelected: isSelected === "Dashboard" })}
+          onClick={() => handleClick("Dashboard")}
+          style={getStyle(isSelected === "Dashboard")}
         >
           Dashboard
         </li>
         <li
-          onClick={handleClick}
-          style={style({ isSelected: isSelected === "Feedback" })}
+          onClick={() => handleClick("Feedback")}
+          style={getStyle(isSelected === "Feedback")}
         >
           Feedback
         </li>
@@ -32,7 +32,7 @@ function Sidebar() {
   );
 }
 
-const style = ({ isSelected }) => ({
+const getStyle = (isSelected) => ({
   padding: "10px 20px",
   textDecoration: "none",
   margin: "5px 0",

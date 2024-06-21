@@ -1,11 +1,8 @@
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import "../css/board.css";
 
-export default function Board() {
-  const [data, setData] = useState([]);
-
+export default function Board({ data, fetchData }) {
   const handleDelete = async (langCode, videoId) => {
     const action = window.confirm(
       "delete this subtitle? " + videoId + " " + langCode
@@ -15,7 +12,7 @@ export default function Board() {
         const res = await axios.delete("http://localhost:8080/file", {
           params: { videoId, langCode },
         });
-        console.log(res.data);
+        fetchData();
       } catch (err) {
         console.log(err);
       }
@@ -33,18 +30,6 @@ export default function Board() {
       </span>
     );
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("http://localhost:8080/dashboard");
-        setData(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <div className="board">

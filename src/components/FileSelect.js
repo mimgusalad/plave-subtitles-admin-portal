@@ -21,11 +21,15 @@ export default function FileSelect({ fetchData }) {
     for (let i = 0; i < files.length; i++) formData.append("file", files[i]);
 
     try {
-      const res = await axios.post("http://localhost:8080/file", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(
+        "https://api.plave-subtitles.com/file",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       setFiles([]);
       alert("Successfully uploaded files");
       fetchData();

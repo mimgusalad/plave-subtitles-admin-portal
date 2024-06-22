@@ -18,7 +18,7 @@ function Login({ handleLogin }) {
 
   const getUser = async () => {
     try {
-      return await axios.get("http://localhost:8080/user");
+      return await axios.get("https://api.plave-subtitles.com/user");
     } catch (error) {
       console.error(error);
     }
@@ -28,7 +28,7 @@ function Login({ handleLogin }) {
     event.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:8080/login", {
+      const res = await axios.post("https://api.plave-subtitles.com/login", {
         id: id,
         password: password,
       });
@@ -75,7 +75,6 @@ function Login({ handleLogin }) {
                 id="email"
                 label="아이디"
                 name="email"
-                autoComplete="email"
                 autoFocus
                 onChange={(e) => setId(e.target.value)}
               />
@@ -87,7 +86,6 @@ function Login({ handleLogin }) {
                 label="비밀번호"
                 type="password"
                 id="password"
-                autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               {error && <p className="error">{error}</p>}

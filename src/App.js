@@ -17,7 +17,8 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/dashboard");
+      const res = await axios.get("https://api.plave-subtitles.com/dashboard");
+      console.log(res.data);
       setData(res.data);
     } catch (err) {
       console.log(err);

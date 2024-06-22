@@ -29,7 +29,7 @@ export default function Setting({ user, setUser }) {
 
       try {
         const res = await axios.patch(
-          "http://localhost:8080/profile",
+          "https://api.plave-subtitles.com/profile",
           formData,
           {
             headers: {
@@ -50,7 +50,7 @@ export default function Setting({ user, setUser }) {
 
   const getUser = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/user");
+      const res = await axios.get("https://api.plave-subtitles.com/user");
       const userData = res.data;
 
       setUser({

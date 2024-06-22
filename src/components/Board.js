@@ -9,7 +9,7 @@ export default function Board({ data, fetchData }) {
     );
     if (action) {
       try {
-        const res = await axios.delete("http://localhost:8080/file", {
+        const res = await axios.delete("https://api.plave-subtitles.com/file", {
           params: { videoId, langCode },
         });
         fetchData();

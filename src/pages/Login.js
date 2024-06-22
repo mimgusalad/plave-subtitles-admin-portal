@@ -11,22 +11,14 @@ import axios from "axios";
 import { useState } from "react";
 import "../css/login.css";
 
-function Login({ setIsLogin, setUser }) {
+function Login({ handleLogin }) {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const getUser = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/user");
-      const userData = res.data;
-
-      setUser({
-        id: userData.id,
-        username: userData.username,
-        email: userData.email,
-        image: `data:image/png;base64,${res.data.image}`,
-      });
+      return await axios.get("http://localhost:8080/user");
     } catch (error) {
       console.error(error);
     }
@@ -41,8 +33,9 @@ function Login({ setIsLogin, setUser }) {
         password: password,
       });
       if (res.status === 200) {
-        setIsLogin(true);
-        getUser();
+        const res = await getUser();
+        console.log(res.data);
+        handleLogin(res.data);
       }
     } catch (error) {
       setError("Invalid username or password");

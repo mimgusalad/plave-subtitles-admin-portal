@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/profile.css";
 
-export default function Profile({ user }) {
+export default function Profile({ user, handleLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuOpen = () => {
@@ -24,12 +24,14 @@ export default function Profile({ user }) {
           }}
         />
       </div>
-      {isMenuOpen && <Menu handleMenuOpen={handleMenuOpen} />}
+      {isMenuOpen && (
+        <Menu handleMenuOpen={handleMenuOpen} handleLogout={handleLogout} />
+      )}
     </div>
   );
 }
 
-const Menu = ({ handleMenuOpen }) => {
+const Menu = ({ handleMenuOpen, handleLogout }) => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate("/settings");
@@ -40,7 +42,7 @@ const Menu = ({ handleMenuOpen }) => {
     <div className="menu">
       <ul>
         <li onClick={handleNavigate}>Settings</li>
-        <li>Logout</li>
+        <li onClick={handleLogout}>Logout</li>
       </ul>
     </div>
   );

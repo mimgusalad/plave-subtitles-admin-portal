@@ -4,7 +4,7 @@ import Profile from "../components/Profile";
 import Sidebar from "../components/Sidebar";
 import "../css/feedback.css";
 
-export default function Feedback({ user }) {
+export default function Feedback({ user, handleLogout }) {
   const [feedback, setFeedback] = useState([]);
   const getFeedback = async () => {
     try {
@@ -21,7 +21,7 @@ export default function Feedback({ user }) {
   return (
     <div>
       <Sidebar page={"Feedback"} />
-      <Profile user={user} />
+      <Profile user={user} handleLogout={handleLogout} />
       <div className="feedbacks">
         <h2>Feedback</h2>
         <div className="feedback header">

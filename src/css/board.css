@@ -1,42 +1,68 @@
-.board{
+.board {
     position: fixed;
     top: 0;
+    left: 0;
     left: 220px;
-    height: 100vh;
+    height: calc(100vh - 350px);
     width: calc(100vw - 220px);
     background-color: whitesmoke;
     z-index: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 }
 
-.board.header {
+.board-header {
     font-weight: bold;
     background-color: #f0f0f0;
     position: sticky;
     top: 0;
     display: flex;
     flex-direction: row;
-    height: max-content;
     width: calc(100vw - 400px);
     min-width: 1200px;
-    align-items: center;
     border-radius: 10px;
-    height: 48px;
-    margin: 10px;
     padding: 10px 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    color: black;
-  }
-
-  .board.header span{
-    font-weight: bold;
-    margin: 0 10px;
-    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card{
+.board-header .date-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -15px;
+}
+
+.board-header .videoId-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -15px;
+}
+
+.board-header .title-column {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    margin-left: -15px;
+}
+
+.board-header .members-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-header .subtitle-column {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    margin-left: -15px;
+}
+
+
+.card {
     display: flex;
     flex-direction: row;
     height: max-content;
@@ -48,39 +74,38 @@
     height: 48px;
     margin: 10px;
     padding: 15px 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card span{
+.card span {
     font-size: 1em;
     font-weight: 400;
     margin: 0 10px;
 }
 
-.date-column{
+.date-column {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 180px;
+    width: 200px;
 }
 
-.videoId-column{
+.videoId-column {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 130px;
+    width: 200px;
 }
 
-.title-column{
+.title-column {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
     width: 400px;
+    text-align: left;
 
 }
 
-.members{
+.members {
     display: flex;
     flex-direction: row;
     justify-content: first baseline;
@@ -90,17 +115,17 @@
     margin: 0 20px;
 }
 
-.members span{
+.members span {
     font-size: 12px;
     font-weight: 400;
-    margin:  2px 5px;
+    margin: 2px 5px;
     padding: 3px 14px;
     color: snow;
     font-weight: bold;
     border-radius: 20px;
 }
 
-.members-column{
+.members-column {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,7 +133,7 @@
     margin: 0 20px;
 }
 
-.subtitle{
+.subtitle {
     display: flex;
     flex-direction: row;
     justify-content: first baseline;
@@ -117,22 +142,22 @@
 }
 
 
-#langCode-chip{
+#langCode-chip {
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     font-size: 12px;
     font-weight: 400;
-    margin:  2px 5px;
+    margin: 2px 5px;
     padding: 5px 14px;
     font-weight: bold;
     border-radius: 20px;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     width: 30px;
 }
 
-.lang-close-icon{
+.lang-close-icon {
     position: absolute;
     right: 5px;
     background-color: whitesmoke;

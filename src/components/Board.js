@@ -34,9 +34,9 @@ export default function Board({ data, fetchData }) {
   return (
     <div className="board">
       <h2>Overview</h2>
-      <div className="board header">
+      <div className="board-header">
         <div className="date-column">
-          <span>Uploaded Date</span>
+          <span>Live Stream Date</span>
         </div>
         <div className="videoId-column">
           <span>Video ID</span>

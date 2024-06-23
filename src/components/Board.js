@@ -1,15 +1,20 @@
 import CloseIcon from "@mui/icons-material/Close";
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "../css/board.css";
 
 export default function Board({ data, fetchData }) {
+  const [loading, setLoading] = useState({});
+  const [subtitles, setSubtitles] = useState({});
+
   const handleDelete = async (langCode, videoId) => {
     const action = window.confirm(
       "delete this subtitle? " + videoId + " " + langCode
     );
     if (action) {
       try {
-        const res = await axios.delete("https://api.plave-subtitles.com/file", {
+        await axios.delete("https://api.plave-subtitles.com/file", {
           params: { videoId, langCode },
         });
         fetchData();
@@ -31,6 +36,26 @@ export default function Board({ data, fetchData }) {
     );
   };
 
+  const fetchSubtitle = async (videoId) => {
+    setLoading((prev) => ({ ...prev, [videoId]: true }));
+    try {
+      const res = await axios.get("http://localhost:8080/dashboard/subtitle", {
+        params: { videoId },
+      });
+      setSubtitles((prev) => ({ ...prev, [videoId]: res.data }));
+      setLoading((prev) => ({ ...prev, [videoId]: false }));
+    } catch (err) {
+      console.log(err);
+      setLoading((prev) => ({ ...prev, [videoId]: false }));
+    }
+  };
+
+  useEffect(() => {
+    data.forEach((item) => {
+      fetchSubtitle(item.videoId);
+    });
+  }, [data]);
+
   return (
     <div className="board">
       <h2>Overview</h2>
@@ -48,7 +73,7 @@ export default function Board({ data, fetchData }) {
           <span>Members</span>
         </div>
         <div className="subtitle-column">
-          <span>Available Subs</span>
+          <span>Done Subtitling</span>
         </div>
       </div>
 
@@ -70,18 +95,19 @@ export default function Board({ data, fetchData }) {
               ))}
             </div>
             <div className="subtitle">
-              {item.subtitles.length > 0 ? (
-                item.subtitles.map((lang) => {
-                  return (
-                    <SubtitleChips
-                      key={lang}
-                      langCode={lang}
-                      videoId={item.videoId}
-                    />
-                  );
-                })
+              {loading[item.videoId] ? (
+                <CircularProgress />
+              ) : subtitles[item.videoId] &&
+                subtitles[item.videoId].length > 0 ? (
+                subtitles[item.videoId].map((lang) => (
+                  <SubtitleChips
+                    key={lang}
+                    langCode={lang}
+                    videoId={item.videoId}
+                  />
+                ))
               ) : (
-                <span>None</span>
+                <span>Not yet</span>
               )}
             </div>
           </div>
@@ -93,11 +119,11 @@ export default function Board({ data, fetchData }) {
 
 const MemberChips = ({ data: member }) => {
   const memberColor = {
-    yejun: "royalblue",
-    noah: "purple",
-    bamby: "pink",
-    eunho: "red",
-    hamin: "black",
+    yejun: "#5daded",
+    noah: "#aa8ed6",
+    bamby: "#f0b1c4",
+    eunho: "#dd2e44",
+    hamin: "#33cc99",
   };
 
   const ChipStyle = (member) => ({

@@ -16,14 +16,37 @@ function App() {
   const [user, setUser] = useState({});
 
   const fetchData = async () => {
+    const scriptUrl =
+      "https://script.google.com/macros/s/AKfycbwhoo5Z0heiD3zW6pc3bLqjnt2NLPaPPEDCdX_YSfxwuyS4uW5yOYH3O2g1QDBYyX3m6A/exec";
     try {
-      // const res = await axios.get("https://api.plave-subtitles.com/dashboard");
-      const res = await axios.get("http://localhost:8080/dashboard");
-      console.log(res.data);
-      setData(res.data);
+      const res = await axios.get(scriptUrl, {
+        params: {
+          sheetName: "Database",
+        },
+      });
+      const rawData = res.data;
+      const data = rawData.map((item) => {
+        return {
+          date: item[0].split("T")[0],
+          videoId: item[1],
+          title: item[2],
+          members: item[3].split(","),
+        };
+      });
+      setData(data);
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
+    // try {
+    //   // const res = await axios.get("https://api.plave-subtitles.com/dashboard");
+    //   // const res = await axios.get("http://localhost:8080/dashboard");
+    //   const res = await axios.get()
+    //   console.log(res.data);
+    //   setData(res.data);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   const handleLogin = (userData) => {
@@ -46,7 +69,6 @@ function App() {
 
   useEffect(() => {
     fetchData();
-    fetchData2();
   }, []);
 
   return (

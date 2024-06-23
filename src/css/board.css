@@ -20,8 +20,9 @@
     top: 0;
     display: flex;
     flex-direction: row;
-    width: calc(100vw - 400px);
-    min-width: 1200px;
+    /* width: calc(100vw - 400px); */
+    width: 1400px;
+    min-width: 1400px;
     border-radius: 10px;
     padding: 10px 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -31,34 +32,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: -15px;
+    width: 200px;
 }
 
 .board-header .videoId-column {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: -15px;
+    width: 200px;
 }
 
 .board-header .title-column {
     display: flex;
     justify-content: center;
-    width: 400px;
-    margin-left: -15px;
+    width: 500px;
 }
 
 .board-header .members-column {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 200px;
 }
 
 .board-header .subtitle-column {
     display: flex;
     justify-content: center;
     width: 400px;
-    margin-left: -15px;
 }
 
 
@@ -67,8 +67,8 @@
     flex-direction: row;
     height: max-content;
     align-items: center;
-    width: calc(100vw - 400px);
-    min-width: 1200px;
+    width: 1400px;
+    min-width: 1400px;
     border-radius: 10px;
     background-color: white;
     height: 48px;
@@ -83,26 +83,25 @@
     margin: 0 10px;
 }
 
-.date-column {
+.card .date-column {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 200px;
 }
 
-.videoId-column {
+.card .videoId-column {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 200px;
 }
 
-.title-column {
+.card .title-column {
     display: flex;
     flex-wrap: wrap;
-    width: 400px;
+    width: 500px;
     text-align: left;
-
 }
 
 .members {
@@ -111,26 +110,18 @@
     justify-content: first baseline;
     align-items: center;
     flex-wrap: wrap;
-    width: 250px;
+    width: 200px;
     margin: 0 20px;
 }
 
 .members span {
     font-size: 12px;
     font-weight: 400;
-    margin: 2px 5px;
-    padding: 3px 14px;
+    margin: 2px 3px;
+    padding: 3px 10px;
     color: snow;
     font-weight: bold;
     border-radius: 20px;
-}
-
-.members-column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    margin: 0 20px;
 }
 
 .subtitle {
@@ -138,7 +129,7 @@
     flex-direction: row;
     justify-content: first baseline;
     flex-wrap: wrap;
-    width: 400px;
+    width: 300px;
 }
 
 

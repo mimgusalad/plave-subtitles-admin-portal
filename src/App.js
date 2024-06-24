@@ -34,19 +34,9 @@ function App() {
         };
       });
       setData(data);
-      console.log(data);
     } catch (err) {
       console.log(err);
     }
-    // try {
-    //   // const res = await axios.get("https://api.plave-subtitles.com/dashboard");
-    //   // const res = await axios.get("http://localhost:8080/dashboard");
-    //   const res = await axios.get()
-    //   console.log(res.data);
-    //   setData(res.data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
 
   const handleLogin = (userData) => {
@@ -115,18 +105,3 @@ function App() {
 }
 
 export default App;
-
-const fetchData2 = async () => {
-  const scriptUrl =
-    "https://script.google.com/macros/s/AKfycbwhoo5Z0heiD3zW6pc3bLqjnt2NLPaPPEDCdX_YSfxwuyS4uW5yOYH3O2g1QDBYyX3m6A/exec";
-  try {
-    const res = await axios.get(scriptUrl, {
-      params: {
-        sheetName: "Database",
-      },
-    });
-    console.log(res.data);
-  } catch (err) {
-    console.log(err);
-  }
-};

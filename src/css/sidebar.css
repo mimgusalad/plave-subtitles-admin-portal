@@ -1,5 +1,7 @@
 .sidebar{
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 220px;
     background-color: royalblue;
@@ -7,7 +9,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;    
-    z-index: 1;
 }
 
 .sidebar ul{

@@ -58,25 +58,6 @@ export default function Board({ data, fetchData }) {
 
   return (
     <div className="board">
-      <h2>Overview</h2>
-      <div className="board-header">
-        <div className="date-column">
-          <span>Live Stream Date</span>
-        </div>
-        <div className="videoId-column">
-          <span>Video ID</span>
-        </div>
-        <div className="title-column">
-          <span>Title</span>
-        </div>
-        <div className="members-column">
-          <span>Members</span>
-        </div>
-        <div className="subtitle-column">
-          <span>Done Subtitling</span>
-        </div>
-      </div>
-
       <div className="cards">
         {data.map((item, index) => (
           <div key={index} className="card">

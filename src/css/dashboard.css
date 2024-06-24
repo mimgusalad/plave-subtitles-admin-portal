@@ -1,0 +1,75 @@
+.dashboard-header{
+    position: relative;
+    width: calc(100vw - 220px);
+    min-width: 1400px;
+    height: 120px;
+    background-color: whitesmoke;    
+    left: 220px;
+    margin-top: 10px;
+}
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    margin: 0 50px;
+}
+
+.container h2{
+    position: absolute;
+    left: 0;
+    margin: 0 100px;
+    font-size: 1.8em;
+    padding: 0;
+}
+
+.board-header {
+    position: absolute;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    width: 1400px;
+    min-width: 1400px;
+    border-radius: 10px;
+    padding: 10px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.board-header .date-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+}
+
+.board-header .videoId-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+}
+
+.board-header .title-column {
+    display: flex;
+    justify-content: center;
+    width: 500px;
+}
+
+.board-header .members-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+}
+
+.board-header .subtitle-column {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+}
+

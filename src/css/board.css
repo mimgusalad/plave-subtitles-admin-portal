@@ -1,5 +1,5 @@
 .board {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     left: 220px;
@@ -12,55 +12,6 @@
     align-items: center;
     overflow-y: scroll;
 }
-
-.board-header {
-    font-weight: bold;
-    background-color: #f0f0f0;
-    position: sticky;
-    top: 0;
-    display: flex;
-    flex-direction: row;
-    /* width: calc(100vw - 400px); */
-    width: 1400px;
-    min-width: 1400px;
-    border-radius: 10px;
-    padding: 10px 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.board-header .date-column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-}
-
-.board-header .videoId-column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-}
-
-.board-header .title-column {
-    display: flex;
-    justify-content: center;
-    width: 500px;
-}
-
-.board-header .members-column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-}
-
-.board-header .subtitle-column {
-    display: flex;
-    justify-content: center;
-    width: 400px;
-}
-
 
 .card {
     display: flex;

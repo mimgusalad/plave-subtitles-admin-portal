@@ -8,7 +8,7 @@ export default function Feedback({ user, handleLogout }) {
   const [feedback, setFeedback] = useState([]);
   const getFeedback = async () => {
     try {
-      const res = await axios.get("https://api.plave-subtitles.com/feedback");
+      const res = await axios.get("http://localhost:8080/feedback");
       setFeedback(res.data);
     } catch (error) {
       console.log(error);

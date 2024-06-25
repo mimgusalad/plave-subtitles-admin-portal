@@ -58,42 +58,40 @@ export default function Board({ data, fetchData }) {
 
   return (
     <div className="board">
-      <div className="cards">
-        {data.map((item, index) => (
-          <div key={index} className="card">
-            <div className="date-column">
-              <span>{item.date}</span>
-            </div>
-            <div className="videoId-column">
-              <span>{item.videoId}</span>
-            </div>
-            <div className="title-column">
-              <span>{item.title}</span>
-            </div>
-            <div className="members">
-              {item.members.map((member) => (
-                <MemberChips key={member} data={member} />
-              ))}
-            </div>
-            <div className="subtitle">
-              {loading[item.videoId] ? (
-                <CircularProgress />
-              ) : subtitles[item.videoId] &&
-                subtitles[item.videoId].length > 0 ? (
-                subtitles[item.videoId].map((lang) => (
-                  <SubtitleChips
-                    key={lang}
-                    langCode={lang}
-                    videoId={item.videoId}
-                  />
-                ))
-              ) : (
-                <span>Not yet</span>
-              )}
-            </div>
+      {data.map((item, index) => (
+        <div key={index} className="card">
+          <div className="date-column">
+            <span>{item.date}</span>
           </div>
-        ))}
-      </div>
+          <div className="videoId-column">
+            <span>{item.videoId}</span>
+          </div>
+          <div className="title-column">
+            <span>{item.title}</span>
+          </div>
+          <div className="members">
+            {item.members.map((member) => (
+              <MemberChips key={member} data={member} />
+            ))}
+          </div>
+          <div className="subtitle">
+            {loading[item.videoId] ? (
+              <CircularProgress />
+            ) : subtitles[item.videoId] &&
+              subtitles[item.videoId].length > 0 ? (
+              subtitles[item.videoId].map((lang) => (
+                <SubtitleChips
+                  key={lang}
+                  langCode={lang}
+                  videoId={item.videoId}
+                />
+              ))
+            ) : (
+              <span>Not yet</span>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

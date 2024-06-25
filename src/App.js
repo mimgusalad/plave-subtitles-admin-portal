@@ -11,9 +11,11 @@ function App() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("isLogin") || false
+    localStorage.getItem("isLogin") === "true"
   );
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(
+    localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
+  );
 
   const fetchData = async () => {
     const scriptUrl =
@@ -40,19 +42,23 @@ function App() {
   };
 
   const handleLogin = (userData) => {
-    setUser({
+    const userObject = {
       id: userData.id,
       username: userData.username,
       email: userData.email,
       image: `data:image/png;base64,${userData.image}`,
-    });
+    };
+    setUser(userObject);
     setIsLogin(true);
-    localStorage.setItem("isLogin", true);
+    localStorage.setItem("isLogin", "true");
+    localStorage.setItem("user", JSON.stringify(userObject));
   };
 
   const handleLogout = () => {
     setIsLogin(false);
+    setUser({});
     localStorage.removeItem("isLogin");
+    localStorage.removeItem("user");
     navigate("/");
     window.location.reload();
   };
@@ -95,7 +101,9 @@ function App() {
           />
           <Route
             path="/feedback"
-            element={<Feedback user={user} handleLogout={handleLogout} />}
+            element={
+              <Feedback data={data} user={user} handleLogout={handleLogout} />
+            }
           />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>

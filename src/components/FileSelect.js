@@ -59,6 +59,12 @@ export default function FileSelect({ fetchData }) {
         <span>Drag and drop files here or click to upload </span>
       </div>
       <div className="file-list">
+        {files.length === 0 && (
+          <>
+            <span>YYMMDD_lang.srt</span>
+            <span>VideoID_lang.srt</span>
+          </>
+        )}
         <ul>{fileList}</ul>
         <button onClick={() => uploadFile(files)} disabled={files.length === 0}>
           Upload Files

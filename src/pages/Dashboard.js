@@ -19,6 +19,7 @@ function Dashboard({ data, fetchData, user, handleLogout }) {
       setSearchResults(results);
     }
   };
+
   return (
     <div>
       <Sidebar page={"Dashboard"} />

@@ -38,7 +38,6 @@ export default function Feedback({ data, user, handleLogout }) {
       "https://script.google.com/macros/s/AKfycbwKn88K0kNRaEB_u2KGJSKWMHn1RRvRMp8m209pnwRBb0aMQ_Jxgvd13OK0ww7NZP_QjA/exec";
     setFeedback(feedback.filter((item) => item !== row));
     try {
-      console.log(row);
       fetch(scriptUrl, {
         method: "POST",
         body: JSON.stringify({

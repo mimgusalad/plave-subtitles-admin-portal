@@ -67,7 +67,14 @@ export default function Board({ data, fetchData }) {
             <span>{item.videoId}</span>
           </div>
           <div className="title-column">
-            <span>{item.title}</span>
+            <a
+              href={`https://www.youtube.com/watch?v=${item.videoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="video-title-link"
+            >
+              {item.title}
+            </a>
           </div>
           <div className="members">
             {item.members.map((member) => (

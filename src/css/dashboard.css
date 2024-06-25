@@ -2,10 +2,8 @@
     position: relative;
     width: calc(100vw - 220px);
     min-width: 1400px;
-    height: 120px;
-    background-color: whitesmoke;    
+    height: 150px;
     left: 220px;
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,6 +18,7 @@
     align-items: center;
     padding: 10px;
     margin: 0 50px;
+    margin-bottom: 20px;
 }
 
 .container h2{
@@ -36,7 +35,6 @@
     background-color: #f0f0f0;
     display: flex;
     flex-direction: row;
-    bottom: 0;
     width: 1400px;
     min-width: 1400px;
     border-radius: 10px;
@@ -48,20 +46,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px;
+    width: 150px;
+    margin: 0 5px;
 }
 
 .board-header .videoId-column {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px;
+    width: 100px;
+    margin: 0 20px;
 }
 
 .board-header .title-column {
     display: flex;
     justify-content: center;
-    width: 500px;
+    width: 600px;
+    margin: 0 5px;
 }
 
 .board-header .members-column {
@@ -74,6 +75,6 @@
 .board-header .subtitle-column {
     display: flex;
     justify-content: center;
-    width: 400px;
+    width: 300px;
 }
 

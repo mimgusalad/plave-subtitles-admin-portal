@@ -1,13 +1,16 @@
 import CloseIcon from "@mui/icons-material/Close";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "../css/board.css";
 
-export default function Board({ data, fetchData }) {
-  const [loading, setLoading] = useState({});
-  const [subtitles, setSubtitles] = useState({});
-  const observerRef = useRef(null);
+export default function Board({
+  data,
+  fetchData,
+  loading,
+  subtitles,
+  fetchSubtitle,
+}) {
   const itemRefs = useRef([]);
   const observer = useRef(null);
 
@@ -20,7 +23,7 @@ export default function Board({ data, fetchData }) {
         await axios.delete("https://api.plave-subtitles.com/file", {
           params: { videoId, langCode },
         });
-        fetchData();
+        fetchSubtitle(videoId);
       } catch (err) {
         console.log(err);
       }
@@ -37,20 +40,6 @@ export default function Board({ data, fetchData }) {
         />
       </span>
     );
-  };
-
-  const fetchSubtitle = async (videoId) => {
-    setLoading((prev) => ({ ...prev, [videoId]: true }));
-    try {
-      const res = await axios.get("http://localhost:8080/dashboard/subtitle", {
-        params: { videoId },
-      });
-      setSubtitles((prev) => ({ ...prev, [videoId]: res.data }));
-      setLoading((prev) => ({ ...prev, [videoId]: false }));
-    } catch (err) {
-      console.log(err);
-      setLoading((prev) => ({ ...prev, [videoId]: false }));
-    }
   };
 
   useEffect(() => {

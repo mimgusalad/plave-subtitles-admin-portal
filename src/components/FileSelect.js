@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import "../css/drop-file.css";
 
-export default function FileSelect({ fetchData }) {
+export default function FileSelect({ fetchSubtitle }) {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) =>
@@ -18,23 +18,39 @@ export default function FileSelect({ fetchData }) {
 
   const uploadFile = async (files) => {
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) formData.append("file", files[i]);
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const [yymmdd, lang] = file.name.split("_");
+      const videoId = await fetchVideoId(yymmdd);
+      formData.append("file", file, `${videoId}_${lang}`);
+    }
 
     try {
-      const res = await axios.post(
-        "https://api.plave-subtitles.com/file",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.post("http://localhost:8080/file", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       setFiles([]);
       alert("Successfully uploaded files");
-      fetchData();
+      for (let i = 0; i < files.length; i++) {
+        const videoId = formData.get("file").name.split("_")[0];
+        fetchSubtitle(videoId);
+      }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const fetchVideoId = async (yymmdd) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/dashboard/search?keyword=${yymmdd}`
+      );
+      return response.data;
+    } catch (err) {
+      console.error("Error fetching videoId:", err);
+      return yymmdd;
     }
   };
 

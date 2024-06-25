@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import Board from "../components/Board";
 import FileSelect from "../components/FileSelect";
@@ -8,6 +9,8 @@ import "../css/dashboard.css";
 
 function Dashboard({ data, fetchData, user, handleLogout }) {
   const [searchResults, setSearchResults] = useState(data);
+  const [subtitles, setSubtitles] = useState({});
+  const [loading, setLoading] = useState({});
 
   const handleSearch = (keyword) => {
     if (keyword === "") {
@@ -17,6 +20,20 @@ function Dashboard({ data, fetchData, user, handleLogout }) {
         return item.title.toLowerCase().includes(keyword.toLowerCase());
       });
       setSearchResults(results);
+    }
+  };
+
+  const fetchSubtitle = async (videoId) => {
+    setLoading((prev) => ({ ...prev, [videoId]: true }));
+    try {
+      const res = await axios.get("http://localhost:8080/dashboard/subtitle", {
+        params: { videoId },
+      });
+      setSubtitles((prev) => ({ ...prev, [videoId]: res.data }));
+      setLoading((prev) => ({ ...prev, [videoId]: false }));
+    } catch (err) {
+      console.log(err);
+      setLoading((prev) => ({ ...prev, [videoId]: false }));
     }
   };
 
@@ -47,8 +64,16 @@ function Dashboard({ data, fetchData, user, handleLogout }) {
           </div>
         </div>
       </div>
-      <Board data={searchResults} fetchData={fetchData} />
-      <FileSelect fetchData={fetchData} />
+      <Board
+        data={searchResults}
+        fetchData={fetchData}
+        fetchSubtitle={fetchSubtitle}
+        subtitles={subtitles}
+        setSubtitles={setSubtitles}
+        loading={loading}
+        setLoading={setLoading}
+      />
+      <FileSelect fetchData={fetchData} fetchSubtitle={fetchSubtitle} />
     </div>
   );
 }

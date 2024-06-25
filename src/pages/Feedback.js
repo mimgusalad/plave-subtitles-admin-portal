@@ -64,7 +64,7 @@ export default function Feedback({ data, user, handleLogout }) {
           <h2>Feedback</h2>
           <Profile user={user} handleLogout={handleLogout} />
         </div>
-        <div className="board-header">
+        <div className="feedback-column-header">
           <div className="timestamp-column">
             <span>Timestamp</span>
           </div>
@@ -95,6 +95,7 @@ const FeedbackResponse = ({ feedback, handleDelete }) => {
     color: "#dd2e44",
     cursor: "pointer",
     padding: "5px",
+    marginLeft: "10px",
   };
 
   return (

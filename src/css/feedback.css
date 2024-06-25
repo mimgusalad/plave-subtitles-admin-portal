@@ -1,14 +1,16 @@
-.feedback-header{
+.feedback-header {
     position: relative;
     width: calc(100vw - 220px);
     min-width: 1400px;
-    height: 120px;
-    background-color: whitesmoke;    
+    height: 150px;
     left: 220px;
-    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.feedback-container{
+.feedback-container {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -18,7 +20,7 @@
     margin: 0 50px;
 }
 
-.feedback-container h2{
+.feedback-container h2 {
     position: absolute;
     left: 0;
     margin: 0 100px;
@@ -26,18 +28,68 @@
     padding: 0;
 }
 
-.feedback span{
-    font-size: 1em;
-    margin: 0 10px;
+.feedback-column-header {
+    position: relative;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: row;
+    width: 1400px;
+    min-width: 1400px;
+    border-radius: 10px;
+    padding: 10px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.feedback-column-header .timestamp-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin-left: 40px;
+}
+
+.feedback-column-header .videoId-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+}
+
+.feedback-column-header .date-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+}
+
+.feedback-column-header .title-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+}
+
+.feedback-column-header .timecode-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+}
+
+.feedback-column-header .message-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 490px;
 }
 
 .feedbacks {
     position: relative;
-    top: 0;
-    left: 0;
     left: 220px;
     height: calc(100vh - 200px);
     width: calc(100vw - 220px);
+    min-width: 1400px;
     background-color: whitesmoke;
     z-index: 0;
     display: flex;
@@ -46,37 +98,46 @@
     overflow-y: scroll;
 }
 
-.feedback{
+.feedback {
     display: flex;
     flex-direction: row;
-    height: max-content;
     align-items: center;
-    width: calc(100vw - 400px);
-    min-width: 1200px;
+    width: 1400px;
     border-radius: 10px;
     background-color: white;
-    height: 48px;
+    height: max-content;
+    min-height: 48px;
     margin: 10px;
     padding: 15px 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    flex-wrap: wrap;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.feedback .timestamp-column{
+.feedback span {
+    font-size: 1em;
+    margin: 0 10px;
+}
+
+
+.feedback .timestamp-column {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 200px;
 }
 
-.feedback .videoId-column{
+.feedback .videoId-column {
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 150px;
 }
 
-.feedback  .title-column{
+.feedback .date-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+}
+
+.feedback .title-column {
     justify-content: center;
     align-items: center;
     width: 300px;
@@ -85,17 +146,15 @@
     text-overflow: ellipsis;
 }
 
-.feedback  .timecode-column{
-    width: 100px;
+.feedback .timecode-column {
+    width: 80px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
-.feedback  .message-column{
+.feedback .message-column {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 500px;
-    flex-wrap: wrap;    
-
+    flex-wrap: wrap;
+    width: 480px;
+    margin-left: 10px;
 }

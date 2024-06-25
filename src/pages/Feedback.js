@@ -1,38 +1,16 @@
 import CloseIcon from "@mui/icons-material/Close";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Profile from "../components/Profile";
 import Sidebar from "../components/Sidebar";
 import "../css/feedback.css";
 
-export default function Feedback({ data, user, handleLogout }) {
-  const [feedback, setFeedback] = useState([]);
-
-  const getFeedback = async () => {
-    try {
-      const res = await axios.get("http://localhost:8080/feedback");
-      const result = res.data.map((item) => {
-        const streamDate = data.find(
-          (stream) => stream.videoId === item.videoId
-        ).date;
-        const title = data.find(
-          (stream) => stream.videoId === item.videoId
-        ).title;
-        return {
-          timestamp: item.timestamp,
-          videoId: item.videoId,
-          streamDate: streamDate,
-          title: title,
-          timecode: item.timecode,
-          message: item.message,
-        };
-      });
-      setFeedback(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+export default function Feedback({
+  user,
+  handleLogout,
+  fetchFeedback,
+  feedback,
+  setFeedback,
+}) {
   const handleDelete = async (row) => {
     const scriptUrl =
       "https://script.google.com/macros/s/AKfycbwKn88K0kNRaEB_u2KGJSKWMHn1RRvRMp8m209pnwRBb0aMQ_Jxgvd13OK0ww7NZP_QjA/exec";
@@ -51,8 +29,7 @@ export default function Feedback({ data, user, handleLogout }) {
   };
 
   useEffect(() => {
-    getFeedback();
-    const interval = setInterval(getFeedback, 60000); // Fetch new feedback every 60 seconds
+    const interval = setInterval(fetchFeedback, 60000); // Fetch new feedback every 60 seconds
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);
 

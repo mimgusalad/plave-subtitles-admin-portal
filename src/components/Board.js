@@ -1,12 +1,15 @@
 import CloseIcon from "@mui/icons-material/Close";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../css/board.css";
 
 export default function Board({ data, fetchData }) {
   const [loading, setLoading] = useState({});
   const [subtitles, setSubtitles] = useState({});
+  const observerRef = useRef(null);
+  const itemRefs = useRef([]);
+  const observer = useRef(null);
 
   const handleDelete = async (langCode, videoId) => {
     const action = window.confirm(
@@ -51,15 +54,41 @@ export default function Board({ data, fetchData }) {
   };
 
   useEffect(() => {
-    data.forEach((item) => {
-      fetchSubtitle(item.videoId);
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const videoId = entry.target.getAttribute("data-videoid");
+            if (!subtitles[videoId] && !loading[videoId]) {
+              fetchSubtitle(videoId);
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll(".card");
+    elements.forEach((el) => {
+      if (el) observer.current.observe(el);
     });
-  }, [data]);
+
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, [data, subtitles, loading]);
 
   return (
     <div className="board">
+      {data.length === 0 && <CircularProgress />}
       {data.map((item, index) => (
-        <div key={index} className="card">
+        <div
+          key={index}
+          className="card"
+          ref={(el) => (itemRefs.current[index] = el)}
+          data-videoid={item.videoId}
+        >
           <div className="date-column">
             <span>{item.date}</span>
           </div>

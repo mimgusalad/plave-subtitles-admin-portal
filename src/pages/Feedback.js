@@ -29,8 +29,8 @@ export default function Feedback({
   };
 
   useEffect(() => {
-    const interval = setInterval(fetchFeedback, 60000); // Fetch new feedback every 60 seconds
-    return () => clearInterval(interval); // Clear interval on component unmount
+    const interval = setInterval(fetchFeedback, 60000); // 60seconds
+    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -18,10 +18,12 @@ export default function FileSelect({ fetchSubtitle }) {
 
   const uploadFile = async (files) => {
     const formData = new FormData();
+    const idArray = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const [yymmdd, lang] = file.name.split("_");
       const videoId = await fetchVideoId(yymmdd);
+      idArray.push(videoId);
       formData.append("file", file, `${videoId}_${lang}`);
     }
 
@@ -33,9 +35,16 @@ export default function FileSelect({ fetchSubtitle }) {
       });
       setFiles([]);
       alert("Successfully uploaded files");
+
       for (let i = 0; i < files.length; i++) {
-        const videoId = formData.get("file").name.split("_")[0];
-        fetchSubtitle(videoId);
+        const id = await fetchVideoId(files[i].name.split("_")[0]);
+        fetchSubtitle(id);
+      }
+
+      try {
+        await axios.post("http://localhost:8080/file/subtitle", idArray);
+      } catch (err) {
+        console.error("Error uploading subtitle:", err);
       }
     } catch (err) {
       console.log(err);

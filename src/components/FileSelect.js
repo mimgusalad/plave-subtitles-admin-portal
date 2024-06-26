@@ -1,5 +1,6 @@
 import BackupIcon from "@mui/icons-material/Backup";
 import CloseIcon from "@mui/icons-material/Close";
+import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -7,6 +8,9 @@ import "../css/drop-file.css";
 
 export default function FileSelect({ fetchSubtitle }) {
   const [files, setFiles] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) =>
       setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]),
@@ -17,6 +21,7 @@ export default function FileSelect({ fetchSubtitle }) {
   };
 
   const uploadFile = async (files) => {
+    setIsUploading(true);
     const formData = new FormData();
     const idArray = [];
     for (let i = 0; i < files.length; i++) {
@@ -32,8 +37,16 @@ export default function FileSelect({ fetchSubtitle }) {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setUploadProgress(percentCompleted);
+        },
       });
       setFiles([]);
+      setIsUploading(false);
+      setUploadProgress(0);
       alert("Successfully uploaded files");
 
       for (let i = 0; i < files.length; i++) {
@@ -48,6 +61,8 @@ export default function FileSelect({ fetchSubtitle }) {
       }
     } catch (err) {
       console.log(err);
+      setIsUploading(false);
+      setUploadProgress(0);
     }
   };
 
@@ -91,8 +106,18 @@ export default function FileSelect({ fetchSubtitle }) {
           </>
         )}
         <ul>{fileList}</ul>
-        <button onClick={() => uploadFile(files)} disabled={files.length === 0}>
-          Upload Files
+        <button
+          onClick={() => uploadFile(files)}
+          disabled={files.length === 0 || isUploading}
+        >
+          {isUploading ? (
+            <>
+              Uploading Files{" "}
+              <LinearProgress variant="determinate" value={uploadProgress} />
+            </>
+          ) : (
+            "Upload Files"
+          )}
         </button>
       </div>
     </div>

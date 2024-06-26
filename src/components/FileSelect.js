@@ -33,7 +33,7 @@ export default function FileSelect({ fetchSubtitle }) {
     }
 
     try {
-      await axios.post("http://localhost:8080/file", formData, {
+      await axios.post("https://api.plave-subtitles.com/file", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -55,7 +55,10 @@ export default function FileSelect({ fetchSubtitle }) {
       }
 
       try {
-        await axios.post("http://localhost:8080/file/subtitle", idArray);
+        await axios.post(
+          "https://api.plave-subtitles.com/file/subtitle",
+          idArray
+        );
       } catch (err) {
         console.error("Error uploading subtitle:", err);
       }
@@ -69,7 +72,7 @@ export default function FileSelect({ fetchSubtitle }) {
   const fetchVideoId = async (yymmdd) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/dashboard/search?keyword=${yymmdd}`
+        `https://api.plave-subtitles.com/dashboard/search?keyword=${yymmdd}`
       );
       return response.data;
     } catch (err) {

@@ -20,7 +20,7 @@ function App() {
 
   const fetchFeedback = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/feedback");
+      const res = await axios.get("https://api.plave-subtitles.com/feedback");
       const result = res.data.map((item) => {
         const streamDate = data.find(
           (stream) => stream.videoId === item.videoId
@@ -53,7 +53,7 @@ function App() {
             sheetName: "Database",
           },
         }),
-        axios.get("http://localhost:8080/feedback"),
+        axios.get("https://api.plave-subtitles.com/feedback"),
       ]);
 
       const rawData = dataRes.data;

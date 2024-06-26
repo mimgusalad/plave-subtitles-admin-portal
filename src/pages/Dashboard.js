@@ -26,9 +26,12 @@ function Dashboard({ data, fetchData, user, handleLogout }) {
   const fetchSubtitle = async (videoId) => {
     setLoading((prev) => ({ ...prev, [videoId]: true }));
     try {
-      const res = await axios.get("http://localhost:8080/dashboard/subtitle", {
-        params: { videoId },
-      });
+      const res = await axios.get(
+        "https://api.plave-subtitles.com/dashboard/subtitle",
+        {
+          params: { videoId },
+        }
+      );
       setSubtitles((prev) => ({ ...prev, [videoId]: res.data }));
       setLoading((prev) => ({ ...prev, [videoId]: false }));
     } catch (err) {
